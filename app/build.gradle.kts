@@ -1,6 +1,18 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    //firebase
+    id("com.google.gms.google-services")
+    // complex types
+    id("kotlin-parcelize")
+    // pass data from activity
+    id("androidx.navigation.safeargs")
+    // dependency injection
+    id("dagger.hilt.android.plugin")
+
+    // kapt compiler
+    id("org.jetbrains.kotlin.kapt")
+
 }
 
 android {
@@ -33,6 +45,10 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    buildFeatures{
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -45,4 +61,58 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    // firebase
+    implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-firestore")
+    implementation("com.google.firebase:firebase-storage")
+    implementation("com.google.firebase:firebase-storage-ktx:20.0.0")
+    implementation("com.google.firebase:firebase-common-ktx:20.0.0")
+    implementation("com.google.firebase:firebase-messaging-ktx:23.0.0")
+    implementation("com.firebaseui:firebase-ui-auth:7.2.0")
+
+    //intuit
+    implementation("com.intuit.sdp:sdp-android:1.0.6")
+    implementation("com.intuit.ssp:ssp-android:1.0.6")
+
+
+    //loading button
+    implementation("br.com.simplepass:loading-button-android:2.2.0")
+
+    //google play services
+    implementation("com.google.android.gms:play-services-auth:20.1.0")
+
+    //smooth bar
+    implementation("com.github.ibrahimsn98:SmoothBottomBar:1.7.9")
+
+    //Glide
+    implementation("com.github.bumptech.glide:glide:4.13.0")
+
+    //circular image
+    implementation("de.hdodenhof:circleimageview:3.1.0")
+
+    //Navigation and safe args
+    implementation("androidx.navigation:navigation-fragment-ktx:2.4.1")
+    implementation("androidx.navigation:navigation-ui-ktx:2.4.1")
+
+    //viewpager2 indicatior
+    implementation("io.github.vejei.viewpagerindicator:viewpagerindicator:1.0.0-alpha.1")
+
+    //lifecycle
+    implementation("android.arch.lifecycle:extensions:1.1.0")
+
+    //Firebase coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.1.1")
+
+    //stepView
+    implementation("com.params.stepview:stepview:1.0.2")
+
+    //Android Ktx
+    implementation("androidx.fragment:fragment-ktx:1.4.1")
+
+
+    //Dagger hilt
+    implementation("com.google.dagger:hilt-android:2.38.1")
+    kapt("com.google.dagger:hilt-compiler:2.38.1")
 }
