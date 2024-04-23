@@ -1,9 +1,10 @@
-package com.example.hqshop
+package com.example.hqshop.views
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.hqshop.R
 
-class MainActivity : AppCompatActivity() {
+class LoginRegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

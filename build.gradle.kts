@@ -4,7 +4,9 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid) apply false
     //firebase
     id("com.google.gms.google-services") version "4.4.1" apply false
-    id("org.jetbrains.kotlin.kapt") version "1.9.0"
+    // hild
+    id("com.google.dagger.hilt.android") version "2.44" apply false
+
 }
 
 // safe args settings
@@ -17,7 +19,7 @@ buildscript {
     dependencies {
         val nav_version = "2.7.7"
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version")
-        classpath("com.google.dagger:hilt-android-gradle-plugin:2.38.1")
+        classpath("com.google.dagger:hilt-android-gradle-plugin:2.44.2")
     }
 }
 

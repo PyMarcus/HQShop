@@ -8,10 +8,11 @@ plugins {
     // pass data from activity
     id("androidx.navigation.safeargs")
     // dependency injection
-    id("dagger.hilt.android.plugin")
+    //id("dagger.hilt.android.plugin")
 
     // kapt compiler
-    id("org.jetbrains.kotlin.kapt")
+    kotlin("kapt")
+    id("com.google.dagger.hilt.android")
 
 }
 
@@ -99,20 +100,26 @@ dependencies {
     //viewpager2 indicatior
     implementation("io.github.vejei.viewpagerindicator:viewpagerindicator:1.0.0-alpha.1")
 
-    //lifecycle
-    implementation("android.arch.lifecycle:extensions:1.1.0")
+    /*//lifecycle
+    implementation("android.arch.lifecycle:extensions:1.1.1")*/
+
 
     //Firebase coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.1.1")
 
     //stepView
-    implementation("com.params.stepview:stepview:1.0.2")
+    //implementation("com.params.stepview:stepview:1.0.2")
 
     //Android Ktx
     implementation("androidx.fragment:fragment-ktx:1.4.1")
 
 
     //Dagger hilt
-    implementation("com.google.dagger:hilt-android:2.38.1")
-    kapt("com.google.dagger:hilt-compiler:2.38.1")
+    implementation("com.google.dagger:hilt-android:2.44")
+    kapt("com.google.dagger:hilt-android-compiler:2.44")
+}
+
+
+kapt {
+    correctErrorTypes = true
 }
