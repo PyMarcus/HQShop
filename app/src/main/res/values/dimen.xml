@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="btn_border_dimen">32dp</dimen>
+    <dimen name="right_address_for_shopping_margintop">132dp</dimen>
+    <dimen name="sublogo_shopping">64dp</dimen>
+</resources>

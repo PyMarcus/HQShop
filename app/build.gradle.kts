@@ -100,15 +100,19 @@ dependencies {
     //viewpager2 indicatior
     implementation("io.github.vejei.viewpagerindicator:viewpagerindicator:1.0.0-alpha.1")
 
-    /*//lifecycle
-    implementation("android.arch.lifecycle:extensions:1.1.1")*/
 
 
     //Firebase coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.1.1")
 
+    // problematicas
+
+    //lifecycle
+    implementation("android.arch.lifecycle:extensions:1.1.1")
+
+
     //stepView
-    //implementation("com.params.stepview:stepview:1.0.2")
+    implementation("com.params.stepview:stepview:1.0.2")
 
     //Android Ktx
     implementation("androidx.fragment:fragment-ktx:1.4.1")
