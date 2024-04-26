@@ -53,8 +53,8 @@ class RegisterFragment: Fragment(), OnClickListener {
         val email = binding.email.text.toString().trim()
         val password = binding.password.text.toString()
         val user = UserModel(firstName, lastName, email, password)
-
-        viewModel.createAccountWithEmailAndPassword(user)
+        if(!firstName.isNullOrEmpty() && !lastName.isNullOrEmpty() && !password.isNullOrEmpty() && !email.isNullOrEmpty())
+            viewModel.createAccountWithEmailAndPassword(user)
     }
 
     private fun observers(){
