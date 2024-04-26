@@ -91,8 +91,10 @@ dependencies {
     implementation("de.hdodenhof:circleimageview:3.1.0")
 
     //Navigation and safe args
-    implementation("androidx.navigation:navigation-fragment-ktx:2.4.1")
-    implementation("androidx.navigation:navigation-ui-ktx:2.4.1")
+    val nav_version = "2.7.7"
+    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-compose:$nav_version")
 
     //viewpager2 indicatior
     implementation("io.github.vejei.viewpagerindicator:viewpagerindicator:1.0.0-alpha.1")
@@ -102,7 +104,6 @@ dependencies {
     //Firebase coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.1.1")
 
-    // problematicas
 
     //lifecycle
     implementation("android.arch.lifecycle:extensions:1.1.1")
@@ -118,6 +119,8 @@ dependencies {
     //Dagger hilt
     implementation("com.google.dagger:hilt-android:2.48")
     kapt("com.google.dagger:hilt-android-compiler:2.48")
+
+    // navigation
 }
 
 

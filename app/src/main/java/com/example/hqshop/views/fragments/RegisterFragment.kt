@@ -58,6 +58,7 @@ class RegisterFragment: Fragment(), OnClickListener {
     }
 
     private fun observers(){
+        println("AQUI")
         lifecycleScope.launchWhenStarted {
             viewModel.createAccountResult.collect{
                 when(it){
@@ -72,6 +73,7 @@ class RegisterFragment: Fragment(), OnClickListener {
                         println("OK FAIL " +  it.message.toString())
                         binding.btnRegister.revertAnimation()
                     }
+                    else -> Unit
                 }
             }
         }

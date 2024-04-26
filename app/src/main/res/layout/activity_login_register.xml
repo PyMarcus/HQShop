@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     tools:context=".views.LoginRegisterActivity"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    >
 
     <ImageView
         android:layout_width="match_parent"
@@ -17,89 +18,17 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <TextView
-            android:id="@+id/top_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/h3"
-            android:drawableStart="@drawable/ic_kleine_shape"
-            android:drawablePadding="8dp"
-            android:text="HQShop"
-            android:textStyle="bold"
-            android:layout_marginTop="80dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
 
-        <TextView
-            android:id="@+id/main_text"
-            android:layout_width="@dimen/_220sdp"
-            android:layout_height="wrap_content"
-            android:text="@string/introduction"
-            android:textAlignment="center"
-            android:gravity="center"
-            android:textSize="24sp"
-            android:layout_marginTop="64dp"
-            style="@style/h2"
-            app:layout_constraintTop_toBottomOf="@id/top_logo"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
-
-        <TextView
-            android:id="@+id/sublogo"
-            android:layout_width="@dimen/_250sdp"
-            android:layout_height="wrap_content"
-            android:text="@string/sublogo_shopping"
-            android:textAlignment="center"
-            android:gravity="center"
-            android:layout_marginTop="32dp"
-            style="@style/h3"
-            app:layout_constraintTop_toBottomOf="@id/main_text"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
-
-        <Button
-            android:id="@+id/btn_register"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Registrar"
-            app:cornerRadius="0dp"
-            android:backgroundTint="@color/g_blue"
-            android:textSize="22sp"
-            android:textAllCaps="false"
-            android:layout_marginHorizontal="@dimen/_64sdp"
-            android:fontFamily="@font/poppins_light"
-            android:textColor="@color/white"
-            android:padding="8dp"
-            app:layout_constraintTop_toBottomOf="@id/sublogo"
-            app:layout_constraintStart_toStartOf="@id/sublogo"
-            app:layout_constraintEnd_toEndOf="@id/sublogo"
-            app:layout_constraintBottom_toBottomOf="parent"
-            />
-
-        <Button
-            android:id="@+id/btn_login"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Acessar"
-            app:cornerRadius="0dp"
-            android:backgroundTint="@color/g_white"
-            android:textSize="22sp"
-            android:textAllCaps="false"
-            android:layout_marginHorizontal="@dimen/_64sdp"
-            android:fontFamily="@font/poppins_light"
-            android:textColor="@color/black"
-            android:padding="8dp"
-            android:layout_marginTop="@dimen/_16sdp"
-            app:layout_constraintTop_toBottomOf="@id/btn_register"
-            app:layout_constraintStart_toStartOf="@id/sublogo"
-            app:layout_constraintEnd_toEndOf="@id/sublogo"
-            />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView2"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/login_register_graph" />
 
 </FrameLayout>
