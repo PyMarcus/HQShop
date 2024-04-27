@@ -3,6 +3,7 @@ package com.example.hqshop.util
 import android.util.Patterns
 
 class ValidationCheck {
+
     companion object{
         fun validateEmail(email: String): RegisterValidation{
             if(email.isEmpty())
