@@ -128,12 +128,11 @@
 
 
 
-    <Button
+    <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
         android:id="@+id/btn_login"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Acessar"
-        app:cornerRadius="0dp"
         android:backgroundTint="@color/g_blue"
         android:textSize="18sp"
         android:textAllCaps="false"
@@ -146,6 +145,8 @@
         app:layout_constraintTop_toBottomOf="@id/forgot"
         app:layout_constraintStart_toStartOf="@id/guideline_left"
         app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:spinning_bar_color="@color/white"
+        app:cornerRadius="0dp"
         />
 
 

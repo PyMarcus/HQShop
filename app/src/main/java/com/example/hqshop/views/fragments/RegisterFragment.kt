@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.hqshop.R
 import com.example.hqshop.databinding.FragmentRegisterBinding
 import com.example.hqshop.models.UserModel
@@ -48,6 +49,9 @@ class RegisterFragment: Fragment(), OnClickListener {
 
     private fun handleEvents(){
         binding.btnRegister.setOnClickListener(this)
+        binding.register.setOnClickListener{
+            findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+        }
     }
 
     private fun register(){
