@@ -11,10 +11,13 @@ import androidx.lifecycle.lifecycleScope
 import com.example.hqshop.R
 import com.example.hqshop.databinding.FragmentRegisterBinding
 import com.example.hqshop.models.UserModel
+import com.example.hqshop.util.RegisterValidation
 import com.example.hqshop.util.Resource
 import com.example.hqshop.viewmodels.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.observeOn
+import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class RegisterFragment: Fragment(), OnClickListener {
@@ -53,12 +56,11 @@ class RegisterFragment: Fragment(), OnClickListener {
         val email = binding.email.text.toString().trim()
         val password = binding.password.text.toString()
         val user = UserModel(firstName, lastName, email, password)
-        if(!firstName.isNullOrEmpty() && !lastName.isNullOrEmpty() && !password.isNullOrEmpty() && !email.isNullOrEmpty())
-            viewModel.createAccountWithEmailAndPassword(user)
+
+        viewModel.createAccountWithEmailAndPassword(user)
     }
 
     private fun observers(){
-        println("AQUI")
         lifecycleScope.launchWhenStarted {
             viewModel.createAccountResult.collect{
                 when(it){
@@ -66,14 +68,33 @@ class RegisterFragment: Fragment(), OnClickListener {
                         binding.btnRegister.startAnimation()
                     }
                     is Resource.Success -> {
-                        println("OK SUCESS" + it.message.toString())
                         binding.btnRegister.revertAnimation()
                     }
                     is Resource.Error -> {
-                        println("OK FAIL " +  it.message.toString())
                         binding.btnRegister.revertAnimation()
                     }
                     else -> Unit
+                }
+            }
+        }
+
+        lifecycleScope.launchWhenStarted {
+            viewModel.validation.collect{validation ->
+                if(validation.email is RegisterValidation.Failed){
+                    withContext(Dispatchers.Main){
+                        binding.email.apply {
+                            requestFocus()
+                            error = (validation.email as RegisterValidation.Failed).message
+                        }
+                    }
+                }
+                if(validation.password is RegisterValidation.Failed){
+                    withContext(Dispatchers.Main){
+                        binding.password.apply {
+                            requestFocus()
+                            error = (validation.password as RegisterValidation.Failed).message
+                        }
+                    }
                 }
             }
         }
