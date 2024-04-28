@@ -1,5 +1,8 @@
 package com.example.hqshop.di
 
+import android.app.Application
+import android.content.Context.MODE_PRIVATE
+import com.example.hqshop.util.Constants.SHARED_PREFERENCES
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.firestore
@@ -20,4 +23,9 @@ object AppModule {
     @Provides
     @Singleton
     fun provideFirebaseFirestoreDatabase() = Firebase.firestore
+
+    @Provides
+    fun provideIntroductionSharedPreferences(
+        application: Application
+    ) = application.getSharedPreferences(SHARED_PREFERENCES, MODE_PRIVATE)
 }
