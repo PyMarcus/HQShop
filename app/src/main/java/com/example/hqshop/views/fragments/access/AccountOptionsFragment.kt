@@ -1,4 +1,4 @@
-package com.example.hqshop.views.fragments
+package com.example.hqshop.views.fragments.access
 
 import android.os.Bundle
 import android.view.LayoutInflater

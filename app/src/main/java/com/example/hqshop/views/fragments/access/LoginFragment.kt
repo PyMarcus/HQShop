@@ -1,4 +1,4 @@
-package com.example.hqshop.views.fragments
+package com.example.hqshop.views.fragments.access
 
 import android.content.Intent
 import android.os.Bundle
@@ -18,8 +18,6 @@ import com.example.hqshop.viewmodels.LoginViewModel
 import com.example.hqshop.views.ShoppingActivity
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint

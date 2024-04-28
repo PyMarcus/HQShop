@@ -1,4 +1,4 @@
-package com.example.hqshop.views.fragments
+package com.example.hqshop.views.fragments.access
 
 import android.content.Intent
 import android.os.Bundle

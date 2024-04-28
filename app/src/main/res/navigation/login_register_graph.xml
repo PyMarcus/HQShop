@@ -6,7 +6,7 @@
     app:startDestination="@id/introductionFragment">
     <fragment
         android:id="@+id/introductionFragment"
-        android:name="com.example.hqshop.views.fragments.IntroductionFragment"
+        android:name="com.example.hqshop.views.fragments.access.IntroductionFragment"
         android:label="IntroductionFragment"
         tools:layout="@layout/fragment_introduction"
         >
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/accountOptionsFragment"
-        android:name="com.example.hqshop.views.fragments.AccountOptionsFragment"
+        android:name="com.example.hqshop.views.fragments.access.AccountOptionsFragment"
         android:label="AccountOptionsFragment"
         tools:layout="@layout/fragment_account_options"
         >
@@ -38,7 +38,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.hqshop.views.fragments.LoginFragment"
+        android:name="com.example.hqshop.views.fragments.access.LoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login">
 
@@ -50,7 +50,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.hqshop.views.fragments.RegisterFragment"
+        android:name="com.example.hqshop.views.fragments.access.RegisterFragment"
         android:label="RegisterFragment"
         tools:layout="@layout/fragment_register"
         >
