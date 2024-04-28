@@ -12,9 +12,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.hqshop.R
 import com.example.hqshop.databinding.FragmentLoginBinding
+import com.example.hqshop.dialog.setupBottomSheetDialog
 import com.example.hqshop.util.Resource
 import com.example.hqshop.viewmodels.LoginViewModel
 import com.example.hqshop.views.ShoppingActivity
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -49,6 +51,14 @@ class LoginFragment: Fragment(R.layout.fragment_login) {
             }
         }
 
+        binding.apply {
+            forgot.setOnClickListener {
+                setupBottomSheetDialog {
+                    email -> viewModel.resetPassword(email)
+                }
+            }
+        }
+
         lifecycleScope.launchWhenStarted {
             viewModel.login.collect{
                 when(it){
@@ -73,6 +83,26 @@ class LoginFragment: Fragment(R.layout.fragment_login) {
                     else -> Unit
                 }
             }
+        }
+
+        lifecycleScope.launchWhenStarted{
+            viewModel.passwordReset.collect{
+            when(it){
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    Snackbar.make(requireView(),
+                        "O link para resetar a senha foi enviado para o seu e-mail",
+                        Snackbar.LENGTH_LONG).show()
+                }
+                is Resource.Error -> {
+                    Snackbar.make(requireView(),
+                        it.message.toString(), Snackbar.LENGTH_LONG).show()
+                }
+                else -> Unit
+            }
+        }
         }
     }
 }

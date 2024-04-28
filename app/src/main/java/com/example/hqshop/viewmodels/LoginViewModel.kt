@@ -11,6 +11,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
@@ -24,6 +25,9 @@ class LoginViewModel @Inject constructor (
 
     private val _login = MutableSharedFlow<Resource<FirebaseUser>>()
     val login = _login.asSharedFlow()
+
+    private val _passwordReset = MutableSharedFlow<Resource<String>>()
+    val passwordReset = _passwordReset.asSharedFlow()
 
 
     fun login(email: String, password: String){
@@ -59,4 +63,19 @@ class LoginViewModel @Inject constructor (
                 passwordValidation is RegisterValidation.Success
     }
 
+    fun resetPassword(email: String){
+        viewModelScope.launch {
+            _passwordReset.emit(Resource.Loading())
+        }
+        firebaseAuth.sendPasswordResetEmail(email)
+            .addOnSuccessListener {
+                viewModelScope.launch {
+                    _passwordReset.emit(Resource.Success(email))
+                }
+            }.addOnFailureListener {
+                viewModelScope.launch {
+                    _passwordReset.emit(Resource.Error("Falha ao enviar e-mail!"))
+                }
+            }
+    }
 }
