@@ -60,7 +60,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_ad_price"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="4dp"
             android:textAllCaps="false"
             />
 
