@@ -7,10 +7,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
-import com.example.hqshop.databinding.ProductRvItemBinding
+import com.example.hqshop.databinding.BestDealsRvItemBinding
 import com.example.hqshop.models.ProductResult
 
-class BestProductsAdapter: RecyclerView.Adapter<BestProductsAdapter.BestProductsViewHolder> (){
+class BestDealsAdapter: RecyclerView.Adapter<BestDealsAdapter.BestDealsViewHolder> (){
     private val diffCallback = object : DiffUtil.ItemCallback<ProductResult>(){
         override fun areItemsTheSame(oldItem: ProductResult, newItem: ProductResult): Boolean {
             return oldItem.id == newItem.id
@@ -23,9 +23,9 @@ class BestProductsAdapter: RecyclerView.Adapter<BestProductsAdapter.BestProducts
 
     val differ = AsyncListDiffer(this, diffCallback)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BestProductsViewHolder {
-        return BestProductsViewHolder(
-            ProductRvItemBinding.inflate(LayoutInflater.from(parent.context))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BestDealsViewHolder {
+        return BestDealsViewHolder(
+            BestDealsRvItemBinding.inflate(LayoutInflater.from(parent.context))
         )
     }
 
@@ -33,23 +33,23 @@ class BestProductsAdapter: RecyclerView.Adapter<BestProductsAdapter.BestProducts
         return differ.currentList.size
     }
 
-    override fun onBindViewHolder(holder: BestProductsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: BestDealsViewHolder, position: Int) {
         val product = differ.currentList[position]
         holder.bind(product)
     }
 
-    inner class BestProductsViewHolder(private val binding: ProductRvItemBinding):
+    inner class BestDealsViewHolder(private val binding: BestDealsRvItemBinding):
         ViewHolder(binding.root){
         fun bind(product: ProductResult){
             binding.apply {
-                tvName.text = product.name
-                tvPrice.text = "R$ ${product.price.toString().replace(".", ",")}"
+                tvDealProductName.text = product.name
+                tvOldPrice.text = "R$ ${product.price.toString().replace(".", ",")}"
                 product.offerPercentage?.let { price ->
                     tvNewPrice.text = "R$ ${
                         (product.price - (product.price * price)).toString().replace(".", ",")
                     }"
                 }
-                Glide.with(itemView).load(product.images).into(imgProduct)
+                Glide.with(itemView).load(product.images).into(imgBestDeal)
             }
         }
     }

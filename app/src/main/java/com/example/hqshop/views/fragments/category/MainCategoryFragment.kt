@@ -8,8 +8,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hqshop.R
+import com.example.hqshop.adapters.BestDealsAdapter
+import com.example.hqshop.adapters.BestProductsAdapter
 import com.example.hqshop.adapters.SpecialProductsAdapter
 import com.example.hqshop.databinding.FragmentMainCategoryBinding
 import com.example.hqshop.util.Resource
@@ -23,6 +26,8 @@ class MainCategoryFragment: Fragment(R.layout.fragment_main_category) {
 
     private lateinit var binding: FragmentMainCategoryBinding
     private lateinit var specialProductsAdapter: SpecialProductsAdapter
+    private lateinit var bestProductsAdapter: BestProductsAdapter
+    private lateinit var bestDealsAdapter: BestDealsAdapter
     private val viewModel by viewModels<MainCategoryViewModel> ()
 
     override fun onCreateView(
@@ -38,8 +43,31 @@ class MainCategoryFragment: Fragment(R.layout.fragment_main_category) {
         super.onViewCreated(view, savedInstanceState)
 
         setupSpecialProductsRv()
+        setupBestProductsRv()
+        setupBestDealsRv()
 
         observers()
+    }
+
+    private fun setupBestProductsRv() {
+        bestProductsAdapter = BestProductsAdapter()
+        binding.rvBestProducts.layoutManager = GridLayoutManager(
+            requireContext(),
+            2,
+            GridLayoutManager.VERTICAL,
+            false)
+        binding.rvBestProducts.adapter = bestProductsAdapter
+    }
+
+    private fun setupBestDealsRv() {
+        bestDealsAdapter = BestDealsAdapter()
+        binding.rvBestDealsProducts.layoutManager = LinearLayoutManager(
+            requireContext(),
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
+        binding.rvBestDealsProducts.adapter = bestDealsAdapter
+
     }
 
     private fun setupSpecialProductsRv() {
@@ -60,6 +88,44 @@ class MainCategoryFragment: Fragment(R.layout.fragment_main_category) {
                     }
                     is Resource.Success -> {
                         specialProductsAdapter.differ.submitList(it.data)
+                        hiddenLoading()
+                    }
+                    is Resource.Error -> {
+                        hiddenLoading()
+                        Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT)
+                    }
+                    else -> Unit
+                }
+            }
+        }
+
+        lifecycleScope.launchWhenStarted {
+            viewModel.bestProducts.collectLatest {
+                when(it){
+                    is Resource.Loading ->{
+                        showLoading()
+                    }
+                    is Resource.Success -> {
+                        bestProductsAdapter.differ.submitList(it.data)
+                        hiddenLoading()
+                    }
+                    is Resource.Error -> {
+                        hiddenLoading()
+                        Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT)
+                    }
+                    else -> Unit
+                }
+            }
+        }
+
+        lifecycleScope.launchWhenStarted {
+            viewModel.bestDealsProducts.collectLatest {
+                when(it){
+                    is Resource.Loading ->{
+                        showLoading()
+                    }
+                    is Resource.Success -> {
+                        bestDealsAdapter.differ.submitList(it.data)
                         hiddenLoading()
                     }
                     is Resource.Error -> {

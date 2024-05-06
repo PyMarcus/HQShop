@@ -42,6 +42,9 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
 
         val homeViewerAdapter = HomeViewPageAdapter(fragmentsCategory, childFragmentManager, lifecycle)
         binding.homeviewer.adapter = homeViewerAdapter
+
+        binding.homeviewer.isUserInputEnabled = false // remove slide to another page
+
         TabLayoutMediator(binding.tablayout, binding.homeviewer){ tab, position ->
             when(position){
                 0 -> tab.text = "Principal"
