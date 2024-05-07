@@ -1,5 +1,6 @@
 package com.example.hqshop.adapters
 
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -48,7 +49,11 @@ class BestProductsAdapter: RecyclerView.Adapter<BestProductsAdapter.BestProducts
                     tvNewPrice.text = "R$ ${
                         (product.price - (product.price * price)).toString().replace(".", ",")
                     }"
+                    tvPrice.paintFlags = tvPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                }?:run{
+                    tvNewPrice.paintFlags = tvNewPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                 }
+
                 Glide.with(itemView).load(product.images).into(imgProduct)
             }
         }

@@ -1,6 +1,7 @@
 package com.example.hqshop.viewmodels
 
 import android.graphics.BitmapFactory
+import android.graphics.pdf.PdfDocument.PageInfo
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.hqshop.models.ProductModel
@@ -27,6 +28,8 @@ class MainCategoryViewModel @Inject constructor(
 
     private val _bestDealsProducts = MutableStateFlow<Resource<List<ProductResult>>>(Resource.Unspecified())
     val bestDealsProducts: StateFlow<Resource<List<ProductResult>>> = _bestDealsProducts
+
+    private var pageInfo = PagingInfo()
 
     init {
         fetch()
@@ -70,11 +73,11 @@ class MainCategoryViewModel @Inject constructor(
             }
     }
 
-    private fun fetchBestProducts(){
+    fun fetchBestProducts(){
         viewModelScope.launch {
             _bestProducts.emit(Resource.Loading())
         }
-        firebase.collection("products").whereEqualTo("category", "dc")
+        firebase.collection("products").limit(pageInfo.page).whereEqualTo("category", "dc")
             .get().addOnSuccessListener {response->
                 val products = response.toObjects(ProductModel::class.java)
                 val productsResults = mutableListOf<ProductResult>()
@@ -94,6 +97,7 @@ class MainCategoryViewModel @Inject constructor(
                         )
                         productsResults.add(p)
                     }
+                    pageInfo.page++
                 }
                 viewModelScope.launch {
                     _bestProducts.emit(Resource.Success(productsResults))
@@ -139,5 +143,7 @@ class MainCategoryViewModel @Inject constructor(
                 }
             }
     }
+
+    internal data class PagingInfo(var page: Long = 1)
 
 }
