@@ -74,39 +74,44 @@ class MainCategoryViewModel @Inject constructor(
     }
 
     fun fetchBestProducts(){
-        viewModelScope.launch {
-            _bestProducts.emit(Resource.Loading())
-        }
-        firebase.collection("products").limit(pageInfo.page).whereEqualTo("category", "dc")
-            .get().addOnSuccessListener {response->
-                val products = response.toObjects(ProductModel::class.java)
-                val productsResults = mutableListOf<ProductResult>()
-                products.forEach{product->
-                    product.images.forEach{base64Str->
-                        val imageByteArray = Base64.decode(base64Str, Base64.DEFAULT)
-                        val bitmap = BitmapFactory.decodeByteArray(imageByteArray, 0, imageByteArray.size)
-                        val p = ProductResult(
-                            product.id,
-                            product.name,
-                            product.price,
-                            product.edition,
-                            product.category,
-                            product.offerPercentage,
-                            product.description,
-                            bitmap
-                        )
-                        productsResults.add(p)
-                    }
-                    pageInfo.page++
-                }
-                viewModelScope.launch {
-                    _bestProducts.emit(Resource.Success(productsResults))
-                }
-            }.addOnFailureListener {
-                viewModelScope.launch {
-                    _bestProducts.emit(Resource.Error("Falha ao carregar os melhores produtos!"))
-                }
+        if(!pageInfo.isPageEnd){  // evita consumo desnecessario de memoria
+            viewModelScope.launch {
+                _bestProducts.emit(Resource.Loading())
             }
+            firebase.collection("products").limit(pageInfo.page).whereEqualTo("category", "dc")
+                .get().addOnSuccessListener {response->
+                    val products = response.toObjects(ProductModel::class.java)
+                    pageInfo.isPageEnd = pageInfo.actualList == products
+                    pageInfo.actualList = products
+                    val productsResults = mutableListOf<ProductResult>()
+                    products.forEach{product->
+                        product.images.forEach{base64Str->
+                            val imageByteArray = Base64.decode(base64Str, Base64.DEFAULT)
+                            val bitmap = BitmapFactory.decodeByteArray(imageByteArray, 0, imageByteArray.size)
+                            val p = ProductResult(
+                                product.id,
+                                product.name,
+                                product.price,
+                                product.edition,
+                                product.category,
+                                product.offerPercentage,
+                                product.description,
+                                bitmap
+                            )
+                            productsResults.add(p)
+                        }
+                        pageInfo.page++
+                    }
+
+                    viewModelScope.launch {
+                        _bestProducts.emit(Resource.Success(productsResults))
+                    }
+                }.addOnFailureListener {
+                    viewModelScope.launch {
+                        _bestProducts.emit(Resource.Error("Falha ao carregar os melhores produtos!"))
+                    }
+                }
+        }
     }
 
     private fun fetchBestDeals(){
@@ -144,6 +149,10 @@ class MainCategoryViewModel @Inject constructor(
             }
     }
 
-    internal data class PagingInfo(var page: Long = 1)
+    internal data class PagingInfo(
+        var page: Long = 1,
+        var isPageEnd: Boolean = false,
+        var actualList: List<ProductModel> = emptyList()
+    )
 
 }
