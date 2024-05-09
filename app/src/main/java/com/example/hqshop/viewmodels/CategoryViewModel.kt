@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
+
 class CategoryViewModel(private val firestore: FirebaseFirestore, private val category: CategoryModel) :
 ViewModel(){
 
@@ -21,6 +22,7 @@ ViewModel(){
 
     private val _bestProducts = MutableStateFlow<Resource<List<ProductResult>>>(Resource.Unspecified())
     var bestProducts = _bestProducts.asStateFlow()
+
 
     init {
         fetchOfferProducts()
@@ -104,5 +106,11 @@ ViewModel(){
                 }
             }
     }
+
+    internal data class PagingInfo(
+        var page: Long = 1,
+        var isPageEnd: Boolean = false,
+        var actualList: List<ProductModel> = emptyList()
+    )
 
 }

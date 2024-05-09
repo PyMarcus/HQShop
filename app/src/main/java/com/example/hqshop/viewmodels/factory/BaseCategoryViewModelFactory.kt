@@ -9,7 +9,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 class BaseCategoryViewModelFactory(
     private var firestore: FirebaseFirestore,
     private var category: CategoryModel
-) : ViewModelProvider.AndroidViewModelFactory(){
+) : ViewModelProvider.Factory{
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return CategoryViewModel(firestore, category) as T

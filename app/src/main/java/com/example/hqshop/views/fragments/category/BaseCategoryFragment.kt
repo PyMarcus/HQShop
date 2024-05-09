@@ -21,9 +21,9 @@ import kotlinx.coroutines.launch
 
 open class BaseCategoryFragment: Fragment(R.layout.fragment_base_category) {
     private lateinit var binding: FragmentBaseCategoryBinding
-    private lateinit var offerAdapter: BestProductsAdapter
-    private lateinit var bestProductsAdapter: BestProductsAdapter
-    private val viewModel by viewModels<CategoryViewModel>()
+    protected val offerAdapter: BestProductsAdapter by lazy { BestProductsAdapter() }
+    protected val bestProductsAdapter: BestProductsAdapter by lazy { BestProductsAdapter() }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,8 +40,6 @@ open class BaseCategoryFragment: Fragment(R.layout.fragment_base_category) {
         setupOfferRv()
         setupBestProductsRv()
 
-        observerOfferProducts()
-        observerBestProducts()
 
         // scrolling
         binding.rvOffer.addOnScrollListener(object : RecyclerView.OnScrollListener(){
@@ -69,46 +67,24 @@ open class BaseCategoryFragment: Fragment(R.layout.fragment_base_category) {
 
     }
 
-    private fun observerBestProducts() {
-        lifecycleScope.launch {
-            viewModel.bestProducts.collectLatest{
-                when(it){
-                    is Resource.Loading -> {
-
-                    }
-                    is Resource.Success -> {
-
-                    }
-                    is Resource.Error -> {
-
-                    }
-                    else -> Unit
-                }
-            }
-        }
+    fun showOfferLoading(){
+        binding.offerProgressbar.visibility = View.VISIBLE
     }
 
-    private fun observerOfferProducts() {
-        lifecycleScope.launch {
-            viewModel.offerProducts.collectLatest{
-                when(it){
-                    is Resource.Loading -> {
-
-                    }
-                    is Resource.Success -> {
-
-                    }
-                    is Resource.Error -> {
-
-                    }
-                    else -> Unit
-                }
-            }
-        }
+    fun showBestProductsLoading(){
+        binding.bestProgressbar.visibility = View.VISIBLE
     }
+
+    fun hideOfferLoading(){
+        binding.offerProgressbar.visibility = View.GONE
+    }
+
+    fun hideBestProductsLoading(){
+        binding.bestProgressbar.visibility = View.GONE
+    }
+
 
     private fun setupBestProductsRv() {
-        bestProductsAdapter = BestProductsAdapter()
         binding.rvBestProducts.layoutManager = GridLayoutManager(
             requireContext(),
             2,
@@ -118,7 +94,6 @@ open class BaseCategoryFragment: Fragment(R.layout.fragment_base_category) {
     }
 
     private fun setupOfferRv() {
-        offerAdapter = BestProductsAdapter()
         binding.rvOffer.apply {
             layoutManager = LinearLayoutManager(
                 requireContext(),
