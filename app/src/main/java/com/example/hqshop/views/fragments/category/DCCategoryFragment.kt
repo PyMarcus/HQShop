@@ -6,6 +6,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.hqshop.models.CategoryModel
 import com.example.hqshop.util.Resource
+import com.example.hqshop.util.showBottomNavigationView
 import com.example.hqshop.viewmodels.CategoryViewModel
 import com.example.hqshop.viewmodels.factory.BaseCategoryViewModelFactory
 import com.google.android.material.snackbar.Snackbar

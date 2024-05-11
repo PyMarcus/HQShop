@@ -9,6 +9,7 @@ import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hqshop.R
@@ -17,6 +18,7 @@ import com.example.hqshop.adapters.BestProductsAdapter
 import com.example.hqshop.adapters.SpecialProductsAdapter
 import com.example.hqshop.databinding.FragmentMainCategoryBinding
 import com.example.hqshop.util.Resource
+import com.example.hqshop.util.showBottomNavigationView
 import com.example.hqshop.viewmodels.MainCategoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -40,6 +42,11 @@ class MainCategoryFragment: Fragment(R.layout.fragment_main_category) {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        showBottomNavigationView()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -48,6 +55,20 @@ class MainCategoryFragment: Fragment(R.layout.fragment_main_category) {
         setupBestDealsRv()
 
         observers()
+
+        bestDealsAdapter.onClick = {
+            val p = Bundle().apply { putParcelable("ProductResult", it) }
+            findNavController().navigate(R.id.action_homeFragment_to_productDetailFragment, p)
+        }
+        bestProductsAdapter.onClick = {
+            val p = Bundle().apply { putParcelable("ProductResult", it) }
+            findNavController().navigate(R.id.action_homeFragment_to_productDetailFragment, p)
+        }
+        specialProductsAdapter.onClick = {
+            val p = Bundle().apply { putParcelable("ProductResult", it) }
+            findNavController().navigate(R.id.action_homeFragment_to_productDetailFragment, p)
+        }
+
     }
 
     private fun setupBestProductsRv() {

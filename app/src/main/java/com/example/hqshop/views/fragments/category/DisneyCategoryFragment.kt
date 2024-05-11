@@ -4,8 +4,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.example.hqshop.R
 import com.example.hqshop.models.CategoryModel
 import com.example.hqshop.util.Resource
+import com.example.hqshop.util.showBottomNavigationView
 import com.example.hqshop.viewmodels.CategoryViewModel
 import com.example.hqshop.viewmodels.factory.BaseCategoryViewModelFactory
 import com.google.android.material.snackbar.Snackbar
@@ -24,8 +27,15 @@ class DisneyCategoryFragment : BaseCategoryFragment() {
         BaseCategoryViewModelFactory(firestore, CategoryModel.Disney)
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        bestProductsAdapter.onClick = {
+            val p = Bundle().apply { putParcelable("ProductResult", it) }
+            findNavController().navigate(R.id.action_homeFragment_to_productDetailFragment, p)
+        }
+
 
         lifecycleScope.launchWhenStarted {
             viewModel.offerProducts.collectLatest {

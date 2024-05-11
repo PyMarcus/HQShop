@@ -1,6 +1,8 @@
 package com.example.hqshop.models
 
 import android.graphics.Bitmap
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
 data class ProductModel(
     val id: String,
@@ -16,6 +18,7 @@ data class ProductModel(
 }
 
 
+@Parcelize
 data class ProductResult(
     val id: String,
     val name: String,
@@ -25,6 +28,6 @@ data class ProductResult(
     val offerPercentage: Float? = null,
     val description: String? = null,
     val images: Bitmap?
-){
+): Parcelable{
     constructor():this("0", "", 0F, 0, "", null, "",null)
 }
