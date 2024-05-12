@@ -3,11 +3,13 @@ package com.example.hqshop.adapters
 import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
+import com.example.hqshop.R
 import com.example.hqshop.databinding.ProductRvItemBinding
 import com.example.hqshop.models.ProductResult
 
@@ -40,6 +42,8 @@ class BestProductsAdapter: RecyclerView.Adapter<BestProductsAdapter.BestProducts
         holder.itemView.setOnClickListener{
             onClick?.invoke(product)
         }
+        val animation = AnimationUtils.loadAnimation(holder.itemView.context, R.anim.rv_animation)
+        holder.itemView.startAnimation(animation)
     }
 
     var onClick: ((ProductResult) -> Unit)? = null
