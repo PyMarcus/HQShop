@@ -18,7 +18,7 @@ class BestProductsAdapter: RecyclerView.Adapter<BestProductsAdapter.BestProducts
         }
 
         override fun areContentsTheSame(oldItem: ProductResult, newItem: ProductResult): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem == newItem
         }
     }
 

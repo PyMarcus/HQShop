@@ -98,9 +98,11 @@ class MainCategoryViewModel @Inject constructor(
                                 product.description,
                                 bitmap
                             )
-                            productsResults.add(p)
+                            if(!productsResults.contains(p))
+                                productsResults.add(p)
+
                         }
-                        pageInfo.page++
+                        pageInfo.page += 1
                     }
 
                     viewModelScope.launch {

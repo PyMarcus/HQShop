@@ -1,21 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true">
 
-    <TextView
-        android:id="@+id/logo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:drawableStart="@drawable/ic_kleine_shape"
-        android:drawablePadding="8dp"
-        android:textStyle="bold"
-        android:text="search"
-        android:layout_marginTop="@dimen/_80sdp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        style="@style/h3"
-        />
+   <androidx.constraintlayout.widget.ConstraintLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       xmlns:app="http://schemas.android.com/apk/res-auto"
+       xmlns:tools="http://schemas.android.com/tools"
+       >
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+       <SearchView
+           android:background="@drawable/search_box_background"
+           android:id="@+id/search_now"
+           android:layout_width="0dp"
+           android:layout_height="wrap_content"
+           android:fontFamily="@font/poppins_bold"
+           android:queryHint="Buscar..."
+           android:layout_marginTop="32dp"
+           android:layout_marginHorizontal="8dp"
+           app:layout_constraintTop_toTopOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintEnd_toEndOf="parent"
+           android:iconifiedByDefault="false"
+           android:queryBackground="@android:color/transparent"
+           android:closeIcon="@null"
+           />
+
+       <ImageView
+           android:id="@+id/close"
+           android:layout_width="20dp"
+           android:layout_height="20dp"
+           android:layout_marginEnd="18dp"
+           android:src="@drawable/ic_close"
+           android:rotation="45"
+           app:layout_constraintTop_toTopOf="@id/search_now"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintBottom_toBottomOf="@id/search_now"
+           />
+
+       <androidx.recyclerview.widget.RecyclerView
+           android:id="@+id/rv_searched_products"
+           android:layout_width="0dp"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="64dp"
+           app:layout_constraintStart_toStartOf="@id/search_now"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintTop_toBottomOf="@id/search_now"
+           android:layout_marginEnd="16dp"
+           android:overScrollMode="never"
+           tools:listitem="@layout/product_rv_item"
+           />
+
+       <ProgressBar
+           android:id="@+id/loading"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:visibility="gone"
+           android:layout_marginTop="128dp"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintTop_toTopOf="parent"
+           android:indeterminateTint="@color/g_gray700"
+           />
+   </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.core.widget.NestedScrollView>

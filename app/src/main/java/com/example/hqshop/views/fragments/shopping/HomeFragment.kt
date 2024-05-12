@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.hqshop.R
 import com.example.hqshop.adapters.HomeViewPageAdapter
 import com.example.hqshop.databinding.FragmentHomeBinding
@@ -44,6 +45,10 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         binding.homeviewer.adapter = homeViewerAdapter
 
         binding.homeviewer.isUserInputEnabled = false // remove slide to another page
+
+        binding.searchBar.setOnClickListener{
+            findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
+        }
 
         TabLayoutMediator(binding.tablayout, binding.homeviewer){ tab, position ->
             when(position){

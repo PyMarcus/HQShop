@@ -19,7 +19,7 @@ class SpecialProductsAdapter: RecyclerView.Adapter<SpecialProductsAdapter.Specia
         }
 
         override fun areContentsTheSame(oldItem: ProductResult, newItem: ProductResult): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem == newItem
         }
     }
 

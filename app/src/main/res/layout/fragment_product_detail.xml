@@ -91,6 +91,7 @@
             android:textColor="@color/white"
             android:backgroundTint="@color/g_blue"
             android:textAllCaps="false"
+            app:spinning_bar_color="@color/white"
             />
 
 

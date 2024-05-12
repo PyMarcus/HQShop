@@ -50,6 +50,12 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="Widget.AppCompat.SearchView" parent="Widget.AppCompat.Light.SearchView">
+        <item name="android:queryBackground">?android:attr/colorBackground</item>
+        <item name="queryHint">?android:attr/textColor</item>
+    </style>
+
+
 
     <dimen name="h4TextSize">35sp</dimen>
     <dimen name="h2TextSize">17sp</dimen>
