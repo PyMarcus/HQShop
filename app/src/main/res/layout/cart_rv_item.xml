@@ -1,39 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="230dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardElevation="0dp"
-    app:cardCornerRadius="5dp"
-    app:cardBackgroundColor="@color/g_card_background"
-    app:cardUseCompatPadding="true"
+    app:cardCornerRadius="8dp"
+    app:cardBackgroundColor="@color/g_white"
+    android:layout_marginBottom="8dp"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="match_parent"
+        android:padding="12dp"
+        >
         <ImageView
             android:id="@+id/img_ad"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
+            android:layout_width="55dp"
+            android:layout_height="75dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
+            android:scaleType="centerCrop"
+            android:src="@color/g_blue"
             />
 
         <TextView
             android:id="@+id/tv_ad_name"
-            android:layout_width="80dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintVertical_weight="1"
             android:text="One Punch Man"
             app:layout_constraintStart_toEndOf="@id/img_ad"
             app:layout_constraintTop_toTopOf="@id/img_ad"
-            android:layout_marginTop="7dp"
-            android:layout_marginStart="18dp"
-            android:fontFamily="@font/poppins_thin"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/poppins_bold"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="17sp"/>
@@ -50,38 +52,41 @@
             android:textSize="12sp"
             android:fontFamily="@font/sf_pro_display"/>
 
-        <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
-            android:id="@+id/btn_add_to_cart"
-            android:layout_width="88dp"
-            android:layout_height="25dp"
-            app:layout_constraintVertical_weight="1"
-            android:background="@drawable/blue_background"
-            android:fontFamily="@font/poppins_light"
-            android:text="Add ao carrinho"
-            android:textColor="@color/white"
-            android:textSize="10sp"
-            android:textStyle="bold"
+
+        <ImageView
+            android:id="@+id/plus"
+            android:layout_width="24dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_plus"
+            android:layout_gravity="center"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_ad_price"
-            android:layout_marginTop="4dp"
-            android:textAllCaps="false"
             />
 
-        <LinearLayout
-            android:layout_width="23dp"
-            android:layout_height="23dp"
+        <TextView
+            android:id="@+id/quantity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintVertical_weight="1"
+            android:text="666"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="@drawable/icon_background"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:src="@drawable/ic_favorite"
-                android:layout_gravity="center"
-                android:layout_marginTop="7dp"
-                />
-        </LinearLayout>
+            app:layout_constraintTop_toBottomOf="@id/plus"
+            app:layout_constraintBottom_toTopOf="@id/minus"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:fontFamily="@font/sf_pro_display"/>
+
+        <ImageView
+            android:id="@+id/minus"
+            android:layout_width="20dp"
+            android:layout_height="18dp"
+            android:src="@drawable/ic_minus"
+            android:layout_gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

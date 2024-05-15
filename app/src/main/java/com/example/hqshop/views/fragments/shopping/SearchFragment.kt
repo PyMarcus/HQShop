@@ -45,6 +45,12 @@ class SearchFragment: Fragment(R.layout.fragment_search) {
         backToOrigin()
         searching()
         observers()
+
+        // carrega informacoes do produto :D
+        bestProductsAdapter.onClick = {
+            val p = Bundle().apply { putParcelable("ProductResult", it) }
+            findNavController().navigate(R.id.action_searchFragment_to_productDetailFragment, p)
+        }
     }
 
     private fun observers() {
