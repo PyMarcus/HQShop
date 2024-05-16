@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.hqshop.databinding.SpecialRvItemBinding
+import com.example.hqshop.databinding.CartRvItemBinding
 import com.example.hqshop.models.ProductResult
 
-class SpecialProductsAdapter: RecyclerView.Adapter<SpecialProductsAdapter.SpecialProductsViewHolder>() {
+class CartAdapter: RecyclerView.Adapter<CartAdapter.CartProductsViewHolder>() {
 
     private val diffCallback = object : DiffUtil.ItemCallback<ProductResult>(){
         override fun areItemsTheSame(oldItem: ProductResult, newItem: ProductResult): Boolean {
@@ -24,13 +24,14 @@ class SpecialProductsAdapter: RecyclerView.Adapter<SpecialProductsAdapter.Specia
     val differ = AsyncListDiffer(this, diffCallback)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
-            SpecialProductsAdapter.SpecialProductsViewHolder {
-        return SpecialProductsViewHolder(SpecialRvItemBinding.inflate(
+            CartProductsViewHolder {
+        return CartProductsViewHolder(
+            CartRvItemBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         ))
     }
 
-    override fun onBindViewHolder(holder: SpecialProductsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CartProductsViewHolder, position: Int) {
         val product =  differ.currentList[position]
         holder.bind(product)
 
@@ -45,7 +46,7 @@ class SpecialProductsAdapter: RecyclerView.Adapter<SpecialProductsAdapter.Specia
         return differ.currentList.size
     }
 
-    inner class SpecialProductsViewHolder(private val binding: SpecialRvItemBinding):
+    inner class CartProductsViewHolder(private val binding: CartRvItemBinding):
         RecyclerView.ViewHolder(binding.root){
         fun bind(product: ProductResult){
             binding.apply {

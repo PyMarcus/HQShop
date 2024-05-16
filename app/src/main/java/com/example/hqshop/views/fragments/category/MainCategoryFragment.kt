@@ -21,7 +21,6 @@ import com.example.hqshop.util.Resource
 import com.example.hqshop.util.showBottomNavigationView
 import com.example.hqshop.viewmodels.MainCategoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
