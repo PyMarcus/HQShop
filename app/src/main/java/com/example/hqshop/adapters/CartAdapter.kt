@@ -1,5 +1,6 @@
 package com.example.hqshop.adapters
 
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -38,21 +39,36 @@ class CartAdapter: RecyclerView.Adapter<CartAdapter.CartProductsViewHolder>() {
         holder.itemView.setOnClickListener{
             onClick?.invoke(product)
         }
+
+        holder.binding.plus.setOnClickListener{
+            onPlusClick?.invoke(product)
+        }
+        holder.binding.minus.setOnClickListener{
+            onMinusClick?.invoke(product)
+        }
     }
 
     var onClick: ((ProductResult) -> Unit)? = null
+    var onPlusClick: ((ProductResult) -> Unit)? = null
+    var onMinusClick: ((ProductResult) -> Unit)? = null
 
     override fun getItemCount(): Int {
         return differ.currentList.size
     }
 
-    inner class CartProductsViewHolder(private val binding: CartRvItemBinding):
+    inner class CartProductsViewHolder(val binding: CartRvItemBinding):
         RecyclerView.ViewHolder(binding.root){
         fun bind(product: ProductResult){
             binding.apply {
                 Glide.with(itemView).load(product.images).into(imgAd)
                 tvAdName.text = product.name
-                tvAdPrice.text = "R$ ${product.price.toString().replace(".", ",")}"
+                product.offerPercentage?.let { price ->
+                    tvAdPrice.text = "R$ ${
+                        (product.price - (product.price * price)).toString().replace(".", ",")
+                    }"
+                }?:run{
+                    tvAdPrice.text = "R$ ${product.price.toString().replace(".", ",")}"
+                }
             }
         }
     }
