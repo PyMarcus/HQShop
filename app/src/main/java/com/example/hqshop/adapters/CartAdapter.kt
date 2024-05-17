@@ -8,16 +8,17 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.hqshop.databinding.CartRvItemBinding
+import com.example.hqshop.models.CartModel
 import com.example.hqshop.models.ProductResult
 
 class CartAdapter: RecyclerView.Adapter<CartAdapter.CartProductsViewHolder>() {
 
-    private val diffCallback = object : DiffUtil.ItemCallback<ProductResult>(){
-        override fun areItemsTheSame(oldItem: ProductResult, newItem: ProductResult): Boolean {
-            return oldItem.id == newItem.id
+    private val diffCallback = object : DiffUtil.ItemCallback<CartModel>(){
+        override fun areItemsTheSame(oldItem: CartModel, newItem: CartModel): Boolean {
+            return oldItem.product.id == newItem.product.id
         }
 
-        override fun areContentsTheSame(oldItem: ProductResult, newItem: ProductResult): Boolean {
+        override fun areContentsTheSame(oldItem: CartModel, newItem: CartModel): Boolean {
             return oldItem == newItem
         }
     }
@@ -37,14 +38,14 @@ class CartAdapter: RecyclerView.Adapter<CartAdapter.CartProductsViewHolder>() {
         holder.bind(product)
 
         holder.itemView.setOnClickListener{
-            onClick?.invoke(product)
+            onClick?.invoke(product.product)
         }
 
         holder.binding.plus.setOnClickListener{
-            onPlusClick?.invoke(product)
+            onPlusClick?.invoke(product.product)
         }
         holder.binding.minus.setOnClickListener{
-            onMinusClick?.invoke(product)
+            onMinusClick?.invoke(product.product)
         }
     }
 
@@ -58,16 +59,17 @@ class CartAdapter: RecyclerView.Adapter<CartAdapter.CartProductsViewHolder>() {
 
     inner class CartProductsViewHolder(val binding: CartRvItemBinding):
         RecyclerView.ViewHolder(binding.root){
-        fun bind(product: ProductResult){
+        fun bind(cart: CartModel){
             binding.apply {
-                Glide.with(itemView).load(product.images).into(imgAd)
-                tvAdName.text = product.name
-                product.offerPercentage?.let { price ->
+                Glide.with(itemView).load(cart.product.images).into(imgAd)
+                tvAdName.text = cart.product.name
+                quantity.text = cart.quantity.toString()
+                cart.product.offerPercentage?.let { price ->
                     tvAdPrice.text = "R$ ${
-                        (product.price - (product.price * price)).toString().replace(".", ",")
+                        (cart.product.price - (cart.product.price * price)).toString().replace(".", ",")
                     }"
                 }?:run{
-                    tvAdPrice.text = "R$ ${product.price.toString().replace(".", ",")}"
+                    tvAdPrice.text = "R$ ${cart.product.price.toString().replace(".", ",")}"
                 }
             }
         }

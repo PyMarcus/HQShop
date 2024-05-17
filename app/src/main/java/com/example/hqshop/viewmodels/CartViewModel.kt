@@ -3,6 +3,7 @@ package com.example.hqshop.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.hqshop.models.Cart
+import com.example.hqshop.models.CartModel
 import com.example.hqshop.models.ProductResult
 import com.example.hqshop.repository.FirebaseCommonRepository
 import com.example.hqshop.util.Convert
@@ -25,7 +26,7 @@ class CartViewModel @Inject constructor(
     private val firebaseCommonRepository: FirebaseCommonRepository
 ): ViewModel(){
 
-    private var _cartsProducts = MutableStateFlow<Resource<List<ProductResult>>>(Resource.Unspecified())
+    private var _cartsProducts = MutableStateFlow<Resource<List<CartModel>>>(Resource.Unspecified())
     var cartsProducts = _cartsProducts.asStateFlow()
     private var cartDocuments = emptyList<DocumentSnapshot>()
 
@@ -46,9 +47,9 @@ class CartViewModel @Inject constructor(
                     viewModelScope.launch {
                         cartDocuments = value.documents
                         val items = value.toObjects(Cart::class.java)
-                        var products = mutableListOf<ProductResult>()
+                        var products = mutableListOf<CartModel>()
                         items.forEach{
-                            products.add(Convert.convertToProductResult(it.product))
+                            products.add(CartModel(Convert.convertToProductResult(it.product), it.quantity))
                         }
                         _cartsProducts.emit(Resource.Success(products))
                     }
@@ -56,7 +57,7 @@ class CartViewModel @Inject constructor(
             }
     }
 
-    fun changeQuantity(product: ProductResult, quantityChanging: FirebaseCommonRepository.QuantityChanging){
+    fun changeQuantity(product: CartModel, quantityChanging: FirebaseCommonRepository.QuantityChanging){
         val productIndex: Int? = cartsProducts.value.data?.indexOf(product)
         if((productIndex != null) && (productIndex >= 0)){
             val documentId: String = cartDocuments[productIndex].id
