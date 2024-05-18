@@ -1,5 +1,6 @@
 package com.example.hqshop.viewmodels
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.hqshop.models.Cart
@@ -16,6 +17,9 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.forEach
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -29,6 +33,15 @@ class CartViewModel @Inject constructor(
     private var _cartsProducts = MutableStateFlow<Resource<List<CartModel>>>(Resource.Unspecified())
     var cartsProducts = _cartsProducts.asStateFlow()
     private var cartDocuments = emptyList<DocumentSnapshot>()
+    var cartTotalPrice = cartsProducts.map {
+        when(it){
+            is Resource.Success ->{
+                solveTotal(it.data!!)
+            }
+            else -> "R$ 0,00"
+        }
+    }
+
 
     init {
         getProductsCard()
@@ -63,6 +76,7 @@ class CartViewModel @Inject constructor(
             val documentId: String = cartDocuments[productIndex].id
             when(quantityChanging){
                 FirebaseCommonRepository.QuantityChanging.INCREASE -> {
+                    viewModelScope.launch { _cartsProducts.emit(Resource.Loading()) }
                     firebaseCommonRepository.increaseQuantity(documentId){ result, error ->
                         if(error != null){
                             viewModelScope.launch { _cartsProducts.emit(Resource.Error("Houve um problema")) }
@@ -70,6 +84,12 @@ class CartViewModel @Inject constructor(
                     }
                 }
                 FirebaseCommonRepository.QuantityChanging.DECREASE -> {
+                    if(product.quantity == 1){
+                        val documentId: String = cartDocuments[productIndex].id
+                        deleteProduct(documentId)
+                        return
+                    }
+                    viewModelScope.launch { _cartsProducts.emit(Resource.Loading()) }
                     firebaseCommonRepository.decreaseQuantity(documentId){ result, error->
                         if(error != null){
                             viewModelScope.launch { _cartsProducts.emit(Resource.Error("Houve um problema")) }
@@ -78,6 +98,28 @@ class CartViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    private fun deleteProduct(documentId: String) {
+        firestore.collection("users").document(auth.uid!!)
+            .collection("cart").document(documentId).delete()
+
+    }
+
+    private fun solveTotal(cart: List<CartModel>): String{
+        var total = 0.0F
+        cart.forEach{cartCollection ->
+            val product = cartCollection.product
+            val discount =  product.offerPercentage
+            total += if(discount != null){
+                val newPrice = (product.price - (
+                        product.price * discount) * cartCollection.quantity)
+                newPrice
+            }else{
+                product.price * cartCollection.quantity
+            }
+                }
+        return "R$ ${total.toString().replace(".", ",")}"
     }
 
 

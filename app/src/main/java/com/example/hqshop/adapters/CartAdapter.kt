@@ -42,16 +42,16 @@ class CartAdapter: RecyclerView.Adapter<CartAdapter.CartProductsViewHolder>() {
         }
 
         holder.binding.plus.setOnClickListener{
-            onPlusClick?.invoke(product.product)
+            onPlusClick?.invoke(product)
         }
         holder.binding.minus.setOnClickListener{
-            onMinusClick?.invoke(product.product)
+            onMinusClick?.invoke(product)
         }
     }
 
     var onClick: ((ProductResult) -> Unit)? = null
-    var onPlusClick: ((ProductResult) -> Unit)? = null
-    var onMinusClick: ((ProductResult) -> Unit)? = null
+    var onPlusClick: ((CartModel) -> Unit)? = null
+    var onMinusClick: ((CartModel) -> Unit)? = null
 
     override fun getItemCount(): Int {
         return differ.currentList.size

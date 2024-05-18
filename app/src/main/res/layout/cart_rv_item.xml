@@ -69,9 +69,11 @@
             android:layout_height="wrap_content"
             app:layout_constraintVertical_weight="1"
             android:text="666"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="@id/plus"
             app:layout_constraintTop_toBottomOf="@id/plus"
             app:layout_constraintBottom_toTopOf="@id/minus"
+            app:layout_constraintStart_toStartOf="@id/plus"
             android:textColor="@color/black"
             android:textSize="12sp"
             android:fontFamily="@font/sf_pro_display"/>
@@ -82,6 +84,7 @@
             android:layout_height="18dp"
             android:src="@drawable/ic_minus"
             android:layout_gravity="center"
+            app:layout_constraintStart_toStartOf="@id/plus"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             />

@@ -36,7 +36,7 @@ class MainCategoryFragment: Fragment(R.layout.fragment_main_category) {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentMainCategoryBinding.inflate(layoutInflater)
         return binding.root
     }
