@@ -19,6 +19,7 @@ import com.example.hqshop.adapters.SpecialProductsAdapter
 import com.example.hqshop.databinding.FragmentMainCategoryBinding
 import com.example.hqshop.util.Resource
 import com.example.hqshop.util.showBottomNavigationView
+import com.example.hqshop.viewmodels.CartViewModel
 import com.example.hqshop.viewmodels.MainCategoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest

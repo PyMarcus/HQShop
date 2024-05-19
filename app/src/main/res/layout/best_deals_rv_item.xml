@@ -70,8 +70,10 @@
             android:textStyle="bold"
             android:textAllCaps="false"
             android:layout_marginStart="20dp"
+            android:layout_marginEnd="8dp"
             app:layout_constraintStart_toEndOf="@id/tv_deal_product_name"
-            app:layout_constraintTop_toTopOf="@id/tv_deal_product_name"
+            app:layout_constraintTop_toTopOf="@id/img_best_deal"
+            app:layout_constraintBottom_toBottomOf="@id/img_best_deal"
             app:layout_constraintEnd_toEndOf="parent"
             />
 

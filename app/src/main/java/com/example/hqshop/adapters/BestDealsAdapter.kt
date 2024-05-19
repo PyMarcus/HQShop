@@ -48,11 +48,14 @@ class BestDealsAdapter: RecyclerView.Adapter<BestDealsAdapter.BestDealsViewHolde
         fun bind(product: ProductResult){
             binding.apply {
                 tvDealProductName.text = product.name
-                tvOldPrice.text = "R$ ${product.price.toString().replace(".", ",")}"
                 product.offerPercentage?.let { price ->
                     tvNewPrice.text = "R$ ${
                         (product.price - (product.price * price)).toString().replace(".", ",")
                     }"
+                    tvOldPrice.text = "R$ ${product.price.toString().replace(".", ",")}"
+                }?:run{
+                    tvOldPrice.text = ""
+                    tvNewPrice.text = "R$ ${product.price.toString().replace(".", ",")}"
                 }
                 Glide.with(itemView).load(product.images).into(imgBestDeal)
             }

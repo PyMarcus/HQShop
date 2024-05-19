@@ -120,24 +120,26 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edName" />
 
-
-        <Button
+        <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
             android:id="@+id/logout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/g_white"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="14sp"
+            app:layout_constraintVertical_weight="1"
             android:layout_marginEnd="8dp"
             android:textAllCaps="false"
             android:padding="12dp"
+            app:cornerRadius="10dp"
             android:layout_marginBottom="8dp"
-            android:text="Fazer Logoff"
+            android:text="Logoff"
             app:spinning_bar_color="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_save"
+            app:layout_constraintStart_toStartOf="@id/edEmail"
+            app:layout_constraintTop_toTopOf="@id/btn_save"
+            app:layout_constraintBottom_toBottomOf="@id/btn_save"
             />
-
 
         <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
             android:id="@+id/btn_save"
@@ -145,13 +147,12 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/g_blue"
             android:textColor="@color/white"
-            android:textSize="20sp"
             android:textAllCaps="false"
             android:layout_marginTop="24dp"
-            android:padding="12dp"
+            android:textSize="14sp"
             android:text="Salvar"
             app:spinning_bar_color="@color/white"
-            app:layout_constraintStart_toStartOf="@id/edEmail"
+            app:layout_constraintStart_toEndOf="@id/logout"
             app:layout_constraintEnd_toEndOf="@id/edEmail"
             app:layout_constraintTop_toBottomOf="@id/edEmail"
             app:layout_constraintBottom_toBottomOf="parent"
