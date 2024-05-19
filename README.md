@@ -17,7 +17,7 @@ The app is entirely written in Kotlin, ensuring a modern and robust codebase.
 ![Screenshot from 2024-05-19 16-22-45](https://github.com/PyMarcus/HQShop/assets/88283829/5a46c84f-682e-4a1f-a5ed-0809a68e8dc4)
 
 
-### Main screen
+### Main screen with vertical recycle view and horizontal recycle view
 
 ![Screenshot from 2024-05-19 16-23-17](https://github.com/PyMarcus/HQShop/assets/88283829/a135893b-543b-413d-bdba-eed44e1e41db)
 
