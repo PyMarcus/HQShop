@@ -141,10 +141,13 @@ class ProfileFragment: Fragment(R.layout.fragment_profile) {
         builder.setMessage("Deseja mesmo sair?")
 
         builder.setPositiveButton("OK") { dialog, _ ->
-            viewModel.logout()
             dialog.dismiss()
-            val intent = Intent(requireContext(), LoginRegisterActivity::class.java)
+            viewModel.logout()
+            val intent = Intent(requireContext(), LoginRegisterActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            }
             startActivity(intent)
+            requireActivity().finish()
         }
 
         builder.setNegativeButton("Cancelar") { dialog, _ ->
